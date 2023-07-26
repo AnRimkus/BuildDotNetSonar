@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "closed" ]
+  workflow_call:  
+  workflow_dispatch:
+  
+jobs: 
+  build-fe:
+    secrets: inherit
+    uses: ./.github/workflows/build-fe.yml
+
+  build-be:
+    needs: policy
+    secrets: inherit
+    uses: ./.github/workflows/build-be.yml
+    with:
+      buildConfiguration: Release
