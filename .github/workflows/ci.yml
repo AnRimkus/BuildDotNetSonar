@@ -7,11 +7,7 @@ on:
   workflow_call:  
   workflow_dispatch:
   
-jobs: 
-  build-fe:
-    secrets: inherit
-    uses: ./.github/workflows/build-fe.yml
-
+jobs:
   build-be:
     needs: policy
     secrets: inherit
