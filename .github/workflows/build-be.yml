@@ -1,0 +1,23 @@
+name: Backend Build
+
+on:  
+  workflow_call:  
+    inputs:
+      buildConfiguration:
+        required: true
+        type: string
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup MSBuild path
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.6
+      - name: Restore NuGet packages
+        run: nuget restore ./WebApplication1/WebApplication1.sln
+      - name: Build
+        run: msbuild ./WebApplication1/WebApplication1.sln /p:Configuration=${{ inputs.buildConfiguration }}
