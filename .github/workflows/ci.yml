@@ -9,7 +9,6 @@ on:
   
 jobs:
   build-be:
-    needs: policy
     secrets: inherit
     uses: ./.github/workflows/build-be.yml
     with:
