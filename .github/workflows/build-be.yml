@@ -9,12 +9,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  InstallSonarScanner:
-    uses: ./.github/workflows/Install-SonarScanner.yml
   build:
     runs-on: windows-latest
-    needs: InstallSonarScanner
+    #needs: InstallSonarScanner
     steps:
+      - name: InstallSonarScanner
+        uses: ./.github/workflows/Install-SonarScanner.yml
       #- uses: actions/checkout@v3
       #  with:
       #    fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
