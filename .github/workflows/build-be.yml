@@ -13,6 +13,7 @@ jobs:
     uses: ./.github/workflows/Install-SonarScanner.yml
   build:
     runs-on: windows-latest
+    needs: InstallSonarScanner
     steps:
       #- uses: actions/checkout@v3
       #  with:
