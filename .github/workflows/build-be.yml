@@ -8,6 +8,9 @@ on:
         type: string
   workflow_dispatch:
 
+env:
+  SLN: ./WebApplication1/WebApplication1.sln
+
 jobs:
   build:
     runs-on: windows-latest
@@ -37,13 +40,13 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.6
       - name: Restore NuGet packages
-        run: nuget restore ./WebApplication1/WebApplication1.sln
+        run: nuget restore $SLN
 
         #Sonar
 
 
       #- name: Build
-      #  run: msbuild ./WebApplication1/WebApplication1.sln /p:Configuration=${{ inputs.buildConfiguration }}
+      #  run: msbuild $SLN /p:Configuration=${{ inputs.buildConfiguration }}
 
       - name: Build and analyze
         env:
@@ -53,5 +56,5 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"AnRimkus_BuildDotNetSonar" /o:"anrimkus" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           #<insert_your_clean_build_command>
-          msbuild ./WebApplication1/WebApplication1.sln /p:Configuration=${{ inputs.buildConfiguration }}
+          msbuild $SLN /p:Configuration=${{ inputs.buildConfiguration }}
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
